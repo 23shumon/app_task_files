@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="@+id/tv_name_label"
+        app:layout_constraintStart_toEndOf="@+id/tv_name_label"
+        android:text="John Doe"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/android_flat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+        android:text="I am a new Android developer. Support me!"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_message"
+        app:layout_constraintStart_toStartOf="@+id/tv_message"
+        app:layout_constraintEnd_toEndOf="@+id/tv_message"
+        android:text="Support me!"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+new layout
+
+
+<android.support.constraint.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<TextView
+    android:id="@+id/txtComingSoon"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="#E1E2E4"
+    android:text="New Courses Starting Soon.."
+    android:textColor="#747577"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/recyclerMouFragment"
+    app:layout_constraintVertical_weight="1"/>
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/recyclerMouFragment"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toTopOf="@+id/constImageButtons"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txtComingSoon"
+    app:layout_constraintVertical_weight="8" />
+
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/constImageButtons"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="#FF9F00"
+    app:layout_constraintTop_toBottomOf="@+id/recyclerMouFragment"
+    app:layout_constraintVertical_weight="1"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintHorizontal_chainStyle="packed"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent">
+
+    <ImageButton
+        android:id="@+id/imbRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imbMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/imbRegister"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imbWebinar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/imbMedia"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imbAboutUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/imbWebinar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imbNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/imbAboutUs"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

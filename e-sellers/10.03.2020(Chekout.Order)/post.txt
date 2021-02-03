@@ -1,0 +1,42 @@
+{
+        "customer_id": 2,
+        "order_total": 2000.0,
+        "payment_type": "cod",
+        "cart": [
+            {
+                "product_id": 2,
+                "product_quantity": 3,
+                "product_price": 1025.0,
+                "size": "L",
+                "color": "Green"
+            },
+            {
+                "product_id": 4,
+                "product_quantity": 1,
+                "product_price": 1240.0,
+                "size": "XL",
+                "color": "White"
+            }
+        ],
+        "address": {
+            "address": "Eskaton",
+            "city": "Dhaka",
+            "zip": 1201,
+            "country": "Bangladesh",
+            "receiver_name": "Shakil",
+            "phone": "01789589584"
+        },
+        "has_different_shipping": true
+}
+
+
+
+
+
+https://esellers.againwish.com/api/auth/profile_update/13
+https://esellers.againwish.com/api/auth/profile_update/13
+
+
+
+
+

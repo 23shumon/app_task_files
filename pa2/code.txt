@@ -1,0 +1,152 @@
+package me.ictlinkbd.com.projectalpha.map;
+
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.ictlinkbd.com.projectalpha.R;
+import me.ictlinkbd.com.projectalpha.util.DeviceLocation;
+
+
+public class MapFragment extends Fragment implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
+    private List<Address> addressList;
+    private Location lastLocation;
+    private Geocoder geocoder;
+    private Context context;
+    private DeviceLocation deviceLocation;
+    private LocationCallback locationCallback;
+    private ProgressBar progressBar;
+    private String TAG = "MapFragment ";
+    SupportMapFragment mapFragment;
+
+    public MapFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+        Log.e(TAG, "onAttach: called");
+        deviceLocation = new DeviceLocation(context);
+        geocoder = new Geocoder(context);
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                lastLocation = locationResult.getLastLocation();
+                Log.e(TAG, "onLocationResult: " + lastLocation);
+
+            }
+        };
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        Log.e(TAG, "onCreateView: called" );
+        setHasOptionsMenu(true);
+        View view= inflater.inflate(R.layout.fragment_map, container, false);
+//        swipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        progressBar = view.findViewById(R.id.mapProgress);
+
+        mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map_fragment);
+
+        addressList = new ArrayList<>();
+
+
+
+//        deviceLocation.getLocationUpdates(locationCallback);
+
+//
+        mapFragment.getMapAsync(MapFragment.this);
+
+        return view;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.e(TAG, "onViewCreated: called" );
+
+//        swipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        Log.e(TAG, "onMapReady: called" );
+
+        mMap = googleMap;
+
+        googleMap.setMyLocationEnabled(true);
+        List<Address> addresses;
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        if (lastLocation!=null) {
+            double latitude = lastLocation.getLatitude();
+            double longitude = lastLocation.getLongitude();
+            LatLng latLng = new LatLng(latitude, longitude);
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 2);
+                markerOptions.position(latLng);
+                markerOptions.title(addresses.get(0).getAddressLine(0));
+                googleMap.addMarker(markerOptions);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(15.5f));
+
+                googleMap.getUiSettings().setZoomControlsEnabled(true);
+                googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                    @Override
+                    public void onMapLoaded() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}

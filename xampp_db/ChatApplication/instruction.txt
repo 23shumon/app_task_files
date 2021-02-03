@@ -1,0 +1,8 @@
+# composer required *****
+# match the device ip
+
+1 goto bin folder
+2 run cmd from here
+3 execute command => php server.php
+4 then run application
+5 watch the cmd for connection establishment message

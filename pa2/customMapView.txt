@@ -1,0 +1,16 @@
+            case MotionEvent.ACTION_DOWN:
+                getParent().getParent().requestDisallowInterceptTouchEvent(true);
+                Log.d(TAG, "Inside if of action down ");
+//                return false;
+
+            case MotionEvent.ACTION_UP:
+                getParent().getParent().requestDisallowInterceptTouchEvent(false);
+                Log.d(TAG, "Inside if of action up");
+//                return true;
+
+            case MotionEvent.ACTION_MOVE:
+                mViewParent.requestDisallowInterceptTouchEvent(true);
+//                return false;
+
+            default:
+                return true;

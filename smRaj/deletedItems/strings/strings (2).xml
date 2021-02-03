@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Smart Rajshahi</string>
+
+<string name="login_splash_msg">welcome to Smart Rajshahi</string>
+<string name="login">Login</string>
+<string name="signup">Signup</string>
+<string name="user_name">Name</string>
+<string name="user_pwd">Password</string>
+<string name="confirm_pwd">Confirm Password</string>
+<string name="contact">Mobile no</string>
+<string name="address">Address</string>
+<string name="forgot_pwd">Forgot Password</string>
+<string name="login_here">Login here</string>
+<string name="register_here">Register here</string>
+<string name="menu_ban_language">BAN Language</string>
+<string name="menu_user_profile">User Profile</string>
+<string name="menu_logout">Logout...</string>
+</resources>

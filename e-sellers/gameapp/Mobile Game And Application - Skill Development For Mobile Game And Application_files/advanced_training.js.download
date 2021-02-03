@@ -1,0 +1,256 @@
+
+// form validation start//
+function form_validation() {
+		//for validation chek veriable
+
+		var formData = new FormData(document.querySelector('form'));
+
+		var name = $("#name").val();
+		var photo = $("#photo").val();
+		var email = $("#email").val();
+		var father_name = $("#father_name").val();
+		var mother_name = $("#mother_name").val();
+		var mobile = $("#mobile").val();
+		var date_of_birth = $("#date_of_birth").val();
+		var gender = $("#gender").val();
+		var nid = $("#nid").val();
+		var nid_file = $("#nid_file").val();
+		var pre_sid = $("#pre_sid").val();
+		var first_preference = $("#first_preference").val();
+		var second_preference = $("#second_preference").val();
+		var third_preference = $("#third_preference").val();
+		var ach_first_preference = $("#ach_first_preference").val();
+		var ach_second_preference = $("#ach_second_preference").val();
+
+		//for non validation check veriable
+
+		var doc_type = $("#doc_type").val();
+		var district = $("#district").val();
+		var upazila = $("#upazila").val();
+		var post_office = $("#post_office").val();
+		var address = $("#address").val();
+		var certificate_file = $("#certificate_file").val();
+		var institute_name = $("#institute_name").val();
+		var other_training = $("#other_training").val();
+		var training_name = $("#training_name").val();
+		// var grade = $("#grade").val();
+
+		var error_status = false;
+
+		if (name == "") {$(".name_error").html("Please Insert this field");error_status = true;}else{$(".name_error").html(" ");}
+
+		if (photo == "") {$(".photo_error").html("Please Insert this field");error_status = true;}else{$(".photo_error").html(" ");}
+
+		if (email == "") {$(".email_error").html("Please Insert this field");error_status = true;}else{$(".email_error").html(" ");}
+
+		if (father_name == "") {$(".father_name_error").html("Please Insert this field");error_status = true;}else{$(".father_name_error").html(" ");}
+
+		if (mother_name == "") {$(".mother_name_error").html("Please Insert this field");error_status = true;}else{$(".mother_name_error").html(" ");}
+
+		if (mobile == "") {$(".mobile_error").html("Please Insert this field");error_status = true;}else{$(".mobile_error").html(" ");}
+
+		if (gender == "") {$(".gender_error").html("Please Insert this field");error_status = true;}else{$(".gender_error").html(" ");}
+
+		// if (nid == "") {$(".nid_error").html("Please Insert this field");error_status = true;}else{$(".nid_error").html(" ");}
+
+		// if (nid_file == "") {$(".nid_file_error").html("Please Insert this field");error_status = true;}else{$(".nid_file_error").html(" ");}
+
+		if (date_of_birth == "") {$(".date_of_birth_error").html("Please Insert this field");error_status = true;}else{$(".date_of_birth_error").html(" ");}
+
+		if (pre_sid == "") {$(".pre_sid_error").html("Please Insert this field");error_status = true;}else{$(".pre_sid_error").html(" ");}
+
+		if (first_preference == "") {$(".first_preference_error").html("Please Insert this field");error_status = true;}else{$(".first_preference_error").html(" ");}
+
+		if (second_preference == "") {$(".second_preference_error").html("Please Insert this field");error_status = true;}else{$(".second_preference_error").html(" ");}
+
+		if (third_preference == "") {$(".third_preference_error").html("Please Insert this field");error_status = true;}else{$(".third_preference_error").html(" ");}
+
+		if (ach_first_preference == "") {$(".ach_first_preference_error").html("Please Insert this field");error_status = true;}else{$(".ach_first_preference_error").html(" ");}
+
+		if (ach_second_preference == "") {$(".ach_second_preference_error").html("Please Insert this field");error_status = true;}else{$(".ach_second_preference_error").html(" ");}
+
+		if (error_status == false) {
+
+			$.ajax({
+				url: api_url +"api/application_submit",
+				dataType:"JSON",
+				type:"POST",
+				processData: false,
+				contentType: false,
+				data: formData,
+				success:function(response){
+					console.log(response);
+
+					if (response.status == "success") {
+						$(".message").html("<span class='alert alert-success'><strong>Success ! </strong>"+ response.message +"</span>")
+
+
+						// for reset form input
+						document.getElementById("form_data").reset();
+						//page bottom to top after form sumbit
+						$("html, body").animate({ scrollTop: 0 }, "slow"); 
+					}else{
+						$(".message").html("<span class='alert alert-danger'><strong>Error ! </strong>"+ response.message +"</span>")
+
+						//page bottom to top afet form sumbit
+						$("html, body").animate({ scrollTop: 0 }, "slow");
+					}
+
+				}
+			});
+
+		}else{
+
+			return false;
+		}
+
+}
+
+
+function sortlist_check()
+{
+	var prev_student_id = $("#pre_sid").val();
+
+	$("#pre_sid").removeClass("focus");
+
+	//reset some data 
+	$(".pre_sid_error").html(" ");
+	
+	
+	$.ajax({
+		// url:"http://localhost/ictdx/admin504/api/sortlist_check",
+		url: api_url +"api/sortlist_check",
+		dataType:"JSON",
+		type:"POST",
+		data:{pre_sid : prev_student_id},
+		success:function(response){
+
+			if (response.status == "success") {
+
+				var vendor_list;
+				response.data.forEach(function(item){
+					vendor_list += "<option value="+ item.position_id +">" + item.position_name + "</option>";
+				});
+
+				$("#ach_first_preference").html(vendor_list);
+				$("#ach_second_preference").html(vendor_list);
+
+				//for existing error reset
+				$(".existing_error").html(" ");
+
+				//for button enable
+				document.getElementById("sub_button").disabled = false;
+
+				//reset some input
+				$(".ach_first_preference_error").html(" ");
+				$(".ach_second_preference_error").html(" ");
+
+			}else{
+
+				//for existing error show
+				$(".existing_error").html(response.message);
+				//for submit button disable
+				document.getElementById("sub_button").disabled = true; 
+				
+				vendor_list = "<option>Select</option>";
+
+				$("#ach_first_preference").html(vendor_list);
+				$("#ach_second_preference").html(vendor_list);
+
+				
+			}
+
+		}
+	});
+}
+
+
+function photo_validation(photo_size)
+	{
+
+		var photo = $("#photo").val();
+		var ext = getExt(photo);
+
+		var photo_size = file_size(photo_size);
+
+
+	    if ((ext == "jpg" || ext == "png") && (photo_size == 1)) {
+	        document.getElementById("photo_size_error").innerHTML ='<p style="color:red; margin-top:5px;">Your File is grater then 2 MB.<p>';
+	         
+	    }else{
+	        document.getElementById('photo_size_error').innerHTML = '';
+	    }
+
+	    if (!((ext == "jpg") || (ext == "png"))) {
+	          document.getElementById("photo_error").innerHTML ='<p style="color:red; margin-top:5px;">You must upload PNG/JPG format.<p>';
+	         
+	    }else{
+	        document.getElementById('photo_error').innerHTML = '';
+	    }
+	}
+
+	
+
+
+	function file_size(photo) {
+
+        var FileSize = photo.files[0].size / 1024 / 1024; // in MB
+
+        if (FileSize > 2) {
+            // alert('File size exceeds 2 MB');
+        	return 1;
+        	
+        } else {
+        	return 2;
+        }
+    }
+
+    //=======get file extention==============//
+	function getExt(filename) {
+	    var dot_pos = filename.lastIndexOf(".");
+	    if (dot_pos == -1) {
+	        return "";
+	    }
+	    return filename.substr(dot_pos + 1).toLowerCase();
+	}
+
+	function student_id_check(){
+
+		var previous_std_id = $("#pre_sid").val();
+
+		if (previous_std_id == "") {
+			alert("Please first insert previous student id");
+			// $("#pre_sid").animate({ scrollTop: 0 }, "slow");
+			$("#pre_sid").focus();
+			$("#pre_sid").addClass("focus");
+		}
+		
+
+	}
+
+//for application verify
+function verify_application()
+{
+	var verify_std = $("#verify_std").val();
+
+	$.ajax({
+		url: api_url +"api/verify_application",
+		dataType:"JSON",
+		type:"POST",
+		data:{verify_std : verify_std},
+		success:function(response){
+			
+			if (response.status == "success") {
+				 // $("#showstudent").load("show/application_preview");
+
+				 $("#prev_show").html('<div class="row"> <div class="col-md-3" > <img class="img_style pull-right" src="images/ictbd.png"> </div><div class="col-md-6" > <h3 class="p_top">Skill Development for Mobile Game & Application</h3> <p class="p_style">You have done preliminiry registration successfully</p><span id="nnn"></span> </div><div class="col-md-3" > <img class="img_style pull-left" src="images/sdmg.png"> </div></div><div class="container" style="padding: 40px 0px"> <div class="col-md-7"> <table class="pull-right" style="color:#000;font-size: 17px;line-height: 1"> <tr> <td>Name</td><td>: '+response.data.name+' </td></tr><tr> <td>Fathers Name</td><td>: '+response.data.father_name+'</td></tr><tr> <td>Mothers Name</td><td>: '+response.data.mother_name+'</td></tr><tr> <td>Address</td><td>: '+response.data.address+'</td></tr><tr> <td>Previous Training Subject</td><td>: '+response.data.training_name+'</td></tr><tr> <td>Mobile</td><td>: '+response.data.mobile+'</td></tr></table> </div><div class="col-md-4"> <span style="color: black;font-size: 15px;">Previous Registration No: '+response.data.pre_sid+'<span> <img class="mid_image pull-right" src="ictdx/admin504/asset/img/training/'+response.data.photo+'"> </div></div><div class="row"> <div class="col-md-12" > <p class="p_footer">NB: This registration does not represent that you are selected for the training. The final selection should be finalized after an interview among the registred students</p></div></div>');
+				 // window.location.href = "show/application_preview";
+
+			}else{
+				 $("#prev_show").html("<p style='color:red; font-size:25px;margin-top:20px;'>"+response.message+"</p>");
+			}
+
+		}
+	});
+}
+

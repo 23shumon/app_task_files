@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">স্মার্ট রাজশাহী</string>
+
+    <string name="login_splash_msg">স্মার্ট রাজশাহীতে স্বাগতম</string>
+    <string name="login">লগইন</string>
+    <string name="signup">রেজিস্টার</string>
+    <string name="user_name">নাম</string>
+    <string name="user_pwd">পাসওয়ার্ড</string>
+    <string name="confirm_pwd">পাসওয়ার্ড পুনরায়</string>
+    <string name="contact">মোবাইল নং</string>
+    <string name="address">ঠিকানা</string>
+    <string name="forgot_pwd">পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="login_here">এখানে লগইন করুন</string>
+    <string name="register_here">রেজিস্টার করুন</string>
+    <string name="menu_ban_language">ইংরেজি ভাষা</string>
+    <string name="menu_user_profile">প্রোফাইল</string>
+    <string name="menu_logout">সাইন আউট...</string>
+</resources>
